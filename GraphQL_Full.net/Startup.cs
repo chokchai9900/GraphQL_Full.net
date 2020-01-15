@@ -37,8 +37,9 @@ namespace GraphQL_Full.net
                 sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-            services.AddScoped<AppSchema>();
+            services.AddScoped<RootSchema>();
             services.AddScoped<DBService>();
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
@@ -58,7 +59,7 @@ namespace GraphQL_Full.net
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseGraphQL<AppSchema>();
+            app.UseGraphQL<RootSchema>();
             app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
 
             app.UseHttpsRedirection();

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GraphQL_Full.net.GraphQL.GraphQLSchema
 {
-    public class AppSchema : Schema
+    public class RootSchema : Schema
     {
-        public AppSchema(IDependencyResolver resolver)
+        public RootSchema(IDependencyResolver resolver)
             :base(resolver)
         {
             Query = resolver.Resolve<AppQuery>();
